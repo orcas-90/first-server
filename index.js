@@ -6,7 +6,6 @@ const response404 = require('./error404');
 let json;
 
 const server = http.createServer((req, res) => {
-
   const url = req.url;
   console.log(url);
   try {
@@ -21,8 +20,8 @@ const server = http.createServer((req, res) => {
     }
   } catch (err) {
     if (err.code === 'ENOENT') {
-      response404(req,res)
-      return
+      response404(req, res);
+      return;
     }
   }
 
@@ -31,17 +30,10 @@ const server = http.createServer((req, res) => {
   let content = objJson.content;
 
   res.writeHead(200, {
-      'Content-Type': 'application/json; charset=utf-8',
-      "Access-control-allow-origin": '*'});
-  res.write(/*`<html>
-      <head></head>
-      <body>
-      <h1>${title}</h1>
-      <p>${content}</p>
-      </body>
-      </html>
-  `*/JSON.stringify({title , content},
-  ));
+    'Content-Type': 'application/json; charset=utf-8',
+    'Access-control-allow-origin': '*',
+  });
+  res.write(JSON.stringify({ title, content }));
 
   res.end();
 });
